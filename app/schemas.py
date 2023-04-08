@@ -18,3 +18,5 @@ class Contact(_BaseContact):
 
 class CreateContact(_BaseContact):
     pass
+class UserGet(_BaseContact):
+    id: int
