@@ -38,20 +38,26 @@ async def get_all_contacts(db: "Session") -> List[_schemas.Contact]:
 async def get_contact(contact_id: int, db: "Session"):
     contact = db.query(_models.Contact).filter(_models.Contact.id == contact_id).first()
     return contact
+async def get_result(result_id: int, db: "Session"):
+    contact = db.query(_models.Result).filter(_models.Result.ID == result_id).first()
+    return contact
 
 
 async def delete_contact(contact: _models.Contact, db: "Session"):
     db.delete(contact)
     db.commit()
 
+async def delete_result(result: _models.Result, db: "Session"):
+    db.delete(result)
+    db.commit()
 
 async def update_contact(
     contact_data: _schemas.CreateContact, contact: _models.Contact, db: "Session"
 ) -> _schemas.Contact:
-    contact.first_name = contact_data.first_name
-    contact.last_name = contact_data.last_name
+    contact.name = contact_data.name
     contact.email = contact_data.email
-    contact.phone_number = contact_data.phone_number
+    contact.age = contact_data.age
+    contact.gender = contact_data.gender
 
     db.commit()
     db.refresh(contact)
